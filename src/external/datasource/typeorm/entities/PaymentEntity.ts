@@ -1,10 +1,10 @@
-import { BeforeInsert, Column, Entity, ObjectIdColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
 import { Payment } from '../../../../core/entities/Payment';
 
 @Entity()
 export class PaymentEntity {
-    @ObjectIdColumn()
-    _id: string
+    @ObjectIdColumn({ name: '_id'})
+    _id: ObjectId
 
     @Column()
     orderId: number
@@ -27,13 +27,14 @@ export class PaymentEntity {
     }
 
     toDomain(): Payment {
-        const payment = new Payment(this.orderId, this.amount, this.paymentDate, this.paymentUniqueNumber)
+        let payment = new Payment(this.orderId, this.amount, this.paymentDate, this.paymentUniqueNumber)
+        payment.id = this._id.toString()
         return payment
     }
 
     static fromDomain(payment: Payment): PaymentEntity {
-        const paymentEntity = new PaymentEntity();
-        paymentEntity._id = payment.id
+        let paymentEntity = new PaymentEntity();
+        paymentEntity._id = new ObjectId(payment.id)
         paymentEntity.orderId = payment.orderId
         paymentEntity.amount = payment.amount
         paymentEntity.paymentDate = payment.paymentDate

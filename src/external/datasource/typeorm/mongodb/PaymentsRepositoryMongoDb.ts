@@ -3,6 +3,7 @@ import { Payment } from "../../../../core/entities/Payment";
 import { IPaymentsGateway } from "../../../../communication/gateways/IPaymentsGateway";
 import { PaymentEntity } from "../entities/PaymentEntity";
 import { AppDataSource } from "..";
+import { ObjectId } from 'mongodb';
 
 class PaymentsRepositoryMongoDb implements IPaymentsGateway{
     
@@ -29,16 +30,18 @@ class PaymentsRepositoryMongoDb implements IPaymentsGateway{
         return payments
     }
     
-    async findById(id: string): Promise<Payment> {
-        const payment = await this.repository.findOne({where:{ id }})
-        return payment.toDomain()
+    async findById(id: string): Promise<Payment> {        
+        const payment = await this.repository.findOne({ where: { _id: new ObjectId(id) }}) 
+        if(payment)
+            return payment.toDomain()
+        return null
     }
 
     async findByOrder(orderId: number): Promise<Payment[]> {
         const all = await this.repository.find( { 
             where: {
                 "orderId" : { $eq: orderId }
-            }
+            }            
         })
 
         let payments : Payment[] = []
