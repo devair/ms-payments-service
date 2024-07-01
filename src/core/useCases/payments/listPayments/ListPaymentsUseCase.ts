@@ -13,7 +13,8 @@ class ListPaymentsUseCase {
             orderId: elem.orderId,
             amount: elem.amount,
             paymentDate: elem.paymentDate,
-            paymentUniqueNumber: elem.paymentUniqueNumber       
+            paymentUniqueNumber: elem.paymentUniqueNumber,
+            createdAt : elem.createdAt  
         }))
 
         return output
