@@ -4,6 +4,7 @@ interface OutputFindPaymentDTO {
     amount: number
     paymentDate: Date
     paymentUniqueNumber: string
+    createdAt: Date
 }
 
 export { OutputFindPaymentDTO  }

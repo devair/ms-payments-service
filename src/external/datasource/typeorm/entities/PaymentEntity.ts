@@ -1,21 +1,21 @@
 import { BeforeInsert, Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
 import { Payment } from '../../../../core/entities/Payment';
 
-@Entity()
+@Entity({ name: 'payments'})
 export class PaymentEntity {
     @ObjectIdColumn({ name: '_id'})
     _id: ObjectId
 
-    @Column()
+    @Column({ nullable: false})
     orderId: number
 
-    @Column()
+    @Column({ nullable: false})
     amount: number
 
-    @Column()
+    @Column({ nullable: false})
     paymentDate: Date
 
-    @Column()
+    @Column({ nullable: false})
     paymentUniqueNumber: string
 
     @Column()
@@ -33,8 +33,11 @@ export class PaymentEntity {
     }
 
     static fromDomain(payment: Payment): PaymentEntity {
-        let paymentEntity = new PaymentEntity();
-        paymentEntity._id = new ObjectId(payment.id)
+        const paymentEntity = new PaymentEntity();
+        
+        if(payment.id){
+            paymentEntity._id = new ObjectId(payment.id)
+        }
         paymentEntity.orderId = payment.orderId
         paymentEntity.amount = payment.amount
         paymentEntity.paymentDate = payment.paymentDate

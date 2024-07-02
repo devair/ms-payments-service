@@ -16,7 +16,8 @@ class FindByIdPaymentUseCase {
             orderId: payment.orderId,
             amount: payment.amount,
             paymentDate: payment.paymentDate,
-            paymentUniqueNumber: payment.paymentUniqueNumber
+            paymentUniqueNumber: payment.paymentUniqueNumber,
+            createdAt: payment.createdAt
         }
     }
 }

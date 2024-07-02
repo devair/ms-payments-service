@@ -18,15 +18,16 @@ services:
       dockerfile: Dockerfile          
     container_name: pagamentos-app    
     ports:
-      - 3333:3333
-      - 9229:9229 #porta para debug
+      - 3334:3334
+      - 9230:9230 #porta para debug
     volumes:
       - ./src:/usr/src/app/src 
 
     environment:                  
+      - APP_PORT=3334
       - DB_DATABASE=pagamentos      
       - MONGO_URI=mongodb://mongo:27017/pagamentos
-
+      - ORDERS_URI=micro-servico-pedido://pedidos_app:3333/api/v1
     links:
       - mongo
 
