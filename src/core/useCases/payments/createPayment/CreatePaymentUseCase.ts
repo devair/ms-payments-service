@@ -17,6 +17,28 @@ class CreatePaymentUseCase {
             // TODO UPDATE ORDER
             //orderFound.status = OrderStatus.RECEIVED
             //await this.ordersRepository.updateStatus(orderFound)
+            try {
+                console.log(process.env.ORDERS_URI)
+
+                const response = await fetch(`${process.env.ORDERS_URI}/orders/${orderId}/status`,{
+                    method: 'PATCH',
+                    body: JSON.stringify({
+                        status: 'Pronto'
+                    }),
+                    headers: { "Content-Type": "application/json" },
+                })  
+                
+                if(response.ok){
+                    console.log(response.body)
+                }
+                else {
+                    console.log(response.status)
+                }
+
+            } catch (error) {
+                console.log(JSON.stringify(error))
+            }
+            
         }
 
         return {
