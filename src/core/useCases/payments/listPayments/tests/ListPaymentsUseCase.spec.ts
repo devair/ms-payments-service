@@ -1,5 +1,4 @@
 
-import { OrdersService } from "../../../../../adapters/OrdersService"
 import { PaymentsRepositoryInMemory } from "../../../../../external/datasource/in-memory/PaymentsRepositoryInMemory"
 import { CreatePaymentUseCase } from "../../createPayment/CreatePaymentUseCase"
 import { ListPaymentsUseCase } from "../ListPaymentsUseCase"
