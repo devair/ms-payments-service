@@ -1,3 +1,4 @@
+import { OrdersService } from "../../../../../adapters/OrdersService"
 import { PaymentsRepositoryInMemory } from "../../../../../external/datasource/in-memory/PaymentsRepositoryInMemory"
 import { CreatePaymentUseCase } from "../CreatePaymentUseCase"
 
@@ -7,8 +8,8 @@ describe('Payments tests', () => {
     beforeAll(async ()=>{
         
         const paymentsRepository = new PaymentsRepositoryInMemory()
-
-        createPaymentUseCase = new CreatePaymentUseCase(paymentsRepository)
+        const ordersService = new OrdersService('http://localhost:9999/api/v1/orders')
+        createPaymentUseCase = new CreatePaymentUseCase(paymentsRepository, ordersService)
                 
     })
 

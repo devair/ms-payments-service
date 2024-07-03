@@ -1,4 +1,5 @@
 
+import { OrdersService } from "../../../../../adapters/OrdersService"
 import { PaymentsRepositoryInMemory } from "../../../../../external/datasource/in-memory/PaymentsRepositoryInMemory"
 import { CreatePaymentUseCase } from "../../createPayment/CreatePaymentUseCase"
 import { ListPaymentsUseCase } from "../ListPaymentsUseCase"
@@ -11,7 +12,8 @@ describe('Payments tests', () => {
         
         const paymentsRepository = new PaymentsRepositoryInMemory()
 
-        createPaymentUseCase = new CreatePaymentUseCase(paymentsRepository)
+        const ordersService = new OrdersService('http://localhost:9999/api/v1/orders')
+        createPaymentUseCase = new CreatePaymentUseCase(paymentsRepository, ordersService)
 
         listPaymentsUseCase = new ListPaymentsUseCase(paymentsRepository)
     

@@ -5,13 +5,15 @@ import { FindByOrderPaymentController } from "../../../communication/controller/
 import { ListPaymentsController } from "../../../communication/controller/payments/ListPaymentsController";
 import { PaymentPresenter } from "../../../communication/presenter/PaymentPresenter";
 import { PaymentsRepositoryMongoDb } from "../../datasource/typeorm/mongodb/PaymentsRepositoryMongoDb";
+import { OrdersService } from "../../../adapters/OrdersService";
 class PaymentsApi {
 
     static async create(request: Request, response: Response): Promise<Response> {
 
         const { orderId, amount, paymentDate, paymentUniqueNumber } = request.body;
-        const paymentsRepository = new PaymentsRepositoryMongoDb()        
-        const createPaymentController = new CreatePaymentController(paymentsRepository)
+        const paymentsRepository = new PaymentsRepositoryMongoDb()     
+        const ordersService = new OrdersService(process.env.ORDERS_URI)        
+        const createPaymentController = new CreatePaymentController(paymentsRepository, ordersService)
 
         try {
             const data = await createPaymentController.handler({ orderId, amount, paymentDate, paymentUniqueNumber });
