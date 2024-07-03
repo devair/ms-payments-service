@@ -1,11 +1,10 @@
 import { IPaymentsGateway } from "../../../../communication/gateways/IPaymentsGateway"
-import { IOrdersService } from "../../../../ports/IOrdersService"
 import { Payment } from "../../../entities/Payment"
 import { InputCreatePaymentDTO, OutputCreatePaymentDTO } from "./ICreatePaymentDTO"
 
 class CreatePaymentUseCase {
 
-    constructor(private paymentsRepository: IPaymentsGateway, private ordersService: IOrdersService ){}
+    constructor(private paymentsRepository: IPaymentsGateway){}
 
     async execute({ orderId, amount, paymentDate, paymentUniqueNumber }: InputCreatePaymentDTO): 
         Promise<OutputCreatePaymentDTO> 
@@ -13,10 +12,6 @@ class CreatePaymentUseCase {
         const payment = new Payment(orderId,amount,paymentDate,paymentUniqueNumber)
 
         const paymentCreated = await this.paymentsRepository.create(payment)
-        
-        if(paymentCreated){                        
-            this.ordersService.updateOrderStatus({ orderId, status: 'Pronto'})          
-        }
 
         return {
             id: paymentCreated.id,            

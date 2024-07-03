@@ -5,12 +5,12 @@ import { IPaymentsGateway } from "../../gateways/IPaymentsGateway";
 
 class CreatePaymentController {
 
-    constructor(private paymentsRepository: IPaymentsGateway, private ordersService: IOrdersService) { }
+    constructor(private paymentsRepository: IPaymentsGateway) { }
 
     async handler({ orderId, amount, paymentDate, paymentUniqueNumber }: InputCreatePaymentDTO): 
         Promise<OutputCreatePaymentDTO> 
     {
-        const paymentCreated = new CreatePaymentUseCase(this.paymentsRepository, this.ordersService)
+        const paymentCreated = new CreatePaymentUseCase(this.paymentsRepository)
 
         return await paymentCreated.execute({ orderId, amount, paymentDate, paymentUniqueNumber });
 

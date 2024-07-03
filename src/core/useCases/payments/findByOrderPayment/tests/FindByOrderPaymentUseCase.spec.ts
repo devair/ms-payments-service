@@ -9,8 +9,7 @@ let findByOrderPaymentUseCase: FindByOrderPaymentUseCase
 describe('Payments tests', () => {
     beforeAll(async ()=>{        
         const paymentsRepository = new PaymentsRepositoryInMemory()
-        const ordersService = new OrdersService('http://localhost:9999/api/v1/orders')
-        createPaymentUseCase = new CreatePaymentUseCase(paymentsRepository, ordersService)
+        createPaymentUseCase = new CreatePaymentUseCase(paymentsRepository)
     })
     
     it('Should be able to find a payment', async ()=>{

@@ -8,15 +8,25 @@ import { PaymentsRepositoryMongoDb } from "../../datasource/typeorm/mongodb/Paym
 import { OrdersService } from "../../../adapters/OrdersService";
 class PaymentsApi {
 
+    // implementation of port/adapter IOrdersService        
+    static ordersService = new OrdersService(process.env.ORDERS_URI)     
+
     static async create(request: Request, response: Response): Promise<Response> {
 
         const { orderId, amount, paymentDate, paymentUniqueNumber } = request.body;
         const paymentsRepository = new PaymentsRepositoryMongoDb()     
-        const ordersService = new OrdersService(process.env.ORDERS_URI)        
-        const createPaymentController = new CreatePaymentController(paymentsRepository, ordersService)
+        
+
+        const createPaymentController = new CreatePaymentController(paymentsRepository)
 
         try {
             const data = await createPaymentController.handler({ orderId, amount, paymentDate, paymentUniqueNumber });
+
+            // send to Orders Microservice
+            if(data){                        
+                await this.ordersService.updateOrderStatus({ orderId, status: 'Pronto'})          
+            }
+
             response.contentType('application/json')
             return response.status(201).send(PaymentPresenter.toJson(data))
         }
