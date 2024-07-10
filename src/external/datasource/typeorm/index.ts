@@ -5,26 +5,17 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 const dbname = process.env.DB_DATABASE 
-const url = process.env.MONGO_URI
+
+const isTestEnvironment = process.env.NODE_ENV === "test";
+const entities = isTestEnvironment ? process.env.TYPEORM_ENTITIES  : 'dist/external/datasource/typeorm/entities/*.js'
 
 const AppDataSource = new DataSource({
     type: "mongodb",
-    url: url,
-    database: dbname,
+    url: process.env.MONGO_URI,    
+    database: process.env.DB_DATABASE,
     synchronize: true,
     logging: true,    
-    entities: ["./dist/external/datasource/typeorm/entities/*.js"],
-    subscribers: [],
-    migrations: [],
-    
+    entities: [ `${entities}` ]             
 })
-
-AppDataSource.initialize()
-    .then(() => {
-        console.log("Data Source has been initialized!")
-    })
-    .catch((err) => {
-        console.error("Error during Data Source initialization", err)
-    })
 
 export { AppDataSource } 
