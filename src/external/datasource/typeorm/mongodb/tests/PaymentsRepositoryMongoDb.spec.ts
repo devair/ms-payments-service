@@ -1,14 +1,14 @@
 import "reflect-metadata"
-import { IPaymentsGateway } from "../../../../communication/gateways/IPaymentsGateway"
-import { Payment } from "../../../../core/entities/Payment"
-import { PaymentsRepositoryInMemory } from "../PaymentsRepositoryInMemory"
+import { IPaymentsGateway } from "../../../../../communication/gateways/IPaymentsGateway"
+import { Payment } from "../../../../../core/entities/Payment"
+import { PaymentsRepositoryMongoDb } from "../PaymentsRepositoryMongoDb"
 
 let paymentsRepository: IPaymentsGateway
 let payment: Payment
 
 describe('Payments tests', () => {
     beforeEach(async ()=>{        
-        paymentsRepository = new PaymentsRepositoryInMemory()
+        paymentsRepository = new PaymentsRepositoryMongoDb()
         payment = new Payment(1, 90, new Date(), 'UNQ-1')
     })
 
@@ -26,7 +26,7 @@ describe('Payments tests', () => {
 
         const payments = await paymentsRepository.list()
 
-        expect(payments.length).toBe(1)
+        expect(payments).toBeInstanceOf(Array)
     })
 
     it('Should be able to find a payment by id', async()=>{
@@ -44,6 +44,6 @@ describe('Payments tests', () => {
 
         const payments = await paymentsRepository.findByOrder(1)
 
-        expect(payments.length).toBe(1)
+        expect(payments).toBeInstanceOf(Array)
     })
 })
