@@ -21,6 +21,13 @@ const config: Config = {
   collectCoverage: true, // Habilita a coleta de cobertura de código
   collectCoverageFrom: ['src/**/*.{ts,js}', '!src/**/I*.{ts,js}'], // Arquivos para coletar cobertura
   coverageDirectory: 'reports/coverage', // Diretório para salvar o relatório de cobertura  
+  reporters: [
+    'default',
+    ['jest-junit', {
+      outputDirectory: 'reports',
+      outputName: 'junit.xml',
+    }],
+  ],
 };
 
 export default config;
