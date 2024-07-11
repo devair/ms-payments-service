@@ -20,7 +20,7 @@ jobs:
       - name: Test and coverage
         run: yarn jest --coverage --forceExit --detectOpenHandles
       - name: Listar
-        run: pwd && ls    
+        run: pwd && ls reports   
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env: 
