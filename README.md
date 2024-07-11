@@ -1,5 +1,5 @@
 
-# Micro servico pagamentos de pedidos  
+# Microserviço pagamentos de pedidos  
 
 Projeto desenvolvido para gerenciar os pagamentos do sistema de pedidos de uma lanchonete utilizando os conceitos de Arquitetura Limpa (Clean Architecture)
 
@@ -44,13 +44,13 @@ Para executar a aplicação é necesssário ter o Docker instalado localmente co
 ### a) Clonar o projeto 
 
 ~~~bash
-  git clone https://github.com/devair/tc-2023.git
+  git clone https://github.com/devair/ms-payments-service.git
 ~~~
 
 ### b) Acessar o diretório do projeto
 
 ~~~bash  
-  cd ms-orders-service
+  cd ms-payments-service
 ~~~
 
 ### c) Rodar no Docker
@@ -82,22 +82,22 @@ Utilizar um dos arquivos abaixo, conforme o sistema operacional:
 
 ### c) Redirecionar portas para acesso via localhost
 
-Para acessar a aplicação via local host na porta 3333, executar o comando abaixo:
+Para acessar a aplicação via local host na porta 3334, executar o comando abaixo:
 
 ~~~bash
-kubectl port-forward service/svc-app 3333:80
+kubectl port-forward service/svc-app 3334:80
 ~~~
 
 ### d) Verificar o estado da aplicação
 Executar o comando abaixo no prompt e obter o retorno 'Ok' indicando que a aplicação está em execução
 
 ~~~bash
-curl http://localhost:3333/health
+curl http://localhost:3334/health
 ~~~
 
 ## 5) Documentação Swagger
 
-http://localhost:3333/api-docs
+http://localhost:3334/api-docs
 
 
 ## 6) Utilização da aplicação
@@ -111,7 +111,7 @@ Utilizar a API abaixo para inclusão de pagamento para um pedido.
 Utilizar a data no formato: "yyyy-MM-ddThh:mm:ss"
 
 
-POST http://localhost:3333/api/v1/payments
+POST http://localhost:3334/api/v1/payments
 
 Content-Type: application/json
 

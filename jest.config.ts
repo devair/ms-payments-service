@@ -10,17 +10,24 @@ const config: Config = {
   testEnvironment: 'node',  
   setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
   moduleFileExtensions: ['ts', 'js'],
-  transform: {
-    '^.+\\.ts$': 'ts-jest'
-  },  
+  transform: {    
+    '^.+\\.(t|j)s$': 'ts-jest'
+  },    
   coverageProvider: "v8",
   testMatch: ["**/*.spec.ts"],  
-  testTimeout: 30000, // Aumentar para 30 segundos
+  testTimeout: 180000, 
   globalSetup: '<rootDir>/src/test/globalSetup.ts',
   globalTeardown: '<rootDir>/src/test/globalTeardown.ts',
   collectCoverage: true, // Habilita a coleta de cobertura de código
-  collectCoverageFrom: ['src/**/*.{ts,js}', '!src/**/*.d.ts'], // Arquivos para coletar cobertura
-  coverageDirectory: 'reports/coverage', // Diretório para salvar o relatório de cobertura    
+  collectCoverageFrom: ['src/**/*.{ts,js}', '!src/**/I*.{ts,js}'], // Arquivos para coletar cobertura
+  coverageDirectory: 'reports/coverage', // Diretório para salvar o relatório de cobertura  
+  reporters: [
+    'default',
+    ['jest-junit', {
+      outputDirectory: 'reports',
+      outputName: 'junit.xml',
+    }],
+  ],
 };
 
 export default config;

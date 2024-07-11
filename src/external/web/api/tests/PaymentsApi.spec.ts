@@ -1,11 +1,29 @@
 import request from "supertest";
 import { app } from "../../../../index";
 
+import { ordersStatusMock } from "../../../../adapters/tests/OrdersServiceMock";
+import { settings } from 'pactum'
+
+const ORDERS_URI = process.env.ORDERS_URI
+
 describe("PaymentsApi", () => {
+
+  beforeAll(async () => {
+    // Order Service API
+    settings.setLogLevel('ERROR')
+    await ordersStatusMock.start(3333)
+    process.env.ORDERS_URI = 'http://localhost:3333/api/v1'
+  }, 60000)
+
+  afterAll(async () => {
+    await ordersStatusMock.stop()
+  }, 30000)
+
+
   it("should create a new payment", async () => {
     const response = await request(app)
       .post("/api/v1/payments")
-      .send({        
+      .send({
         orderId: 1,
         amount: 20,
         paymentDate: Date.now(),
