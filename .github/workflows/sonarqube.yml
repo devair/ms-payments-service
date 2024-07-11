@@ -19,6 +19,11 @@ jobs:
         run: yarn
       - name: Test and coverage
         run: yarn jest
+      - name: download coverage report
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage/reports
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env: 
