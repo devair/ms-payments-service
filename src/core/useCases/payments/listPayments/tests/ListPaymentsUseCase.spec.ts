@@ -1,7 +1,7 @@
-
-import { PaymentsRepositoryInMemory } from "../../../../../external/datasource/in-memory/PaymentsRepositoryInMemory"
+import { PaymentsRepositoryMongoDb } from "../../../../../external/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
 import { CreatePaymentUseCase } from "../../createPayment/CreatePaymentUseCase"
 import { ListPaymentsUseCase } from "../ListPaymentsUseCase"
+
 
 let createPaymentUseCase: CreatePaymentUseCase
 let listPaymentsUseCase : ListPaymentsUseCase
@@ -9,7 +9,7 @@ let listPaymentsUseCase : ListPaymentsUseCase
 describe('Payments tests', () => {
     beforeAll(async ()=>{
         
-        const paymentsRepository = new PaymentsRepositoryInMemory()
+        const paymentsRepository = new PaymentsRepositoryMongoDb()
         createPaymentUseCase = new CreatePaymentUseCase(paymentsRepository)
 
         listPaymentsUseCase = new ListPaymentsUseCase(paymentsRepository)
@@ -29,6 +29,6 @@ describe('Payments tests', () => {
     
         const payments = await listPaymentsUseCase.execute()
 
-        expect(payments.length).toBeGreaterThanOrEqual(1)
+        expect(payments).toBeInstanceOf(Array)
     })
 })

@@ -25,3 +25,5 @@ if (process.env.NODE_ENV !== 'test') {
         });
     }).catch(error => console.log(error));
 }
+
+export { app }
