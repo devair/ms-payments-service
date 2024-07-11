@@ -21,7 +21,7 @@ jobs:
         run: yarn jest --coverage --forceExit --detectOpenHandles
       
       - name: SonarCloud Scan
-        run: yarn sonar-scanner -Dsonar.login=`${{ secrets.SONAR_TOKEN }}`
+        run: yarn sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
       #- name: SonarCloud Scan
       #  uses: SonarSource/sonarcloud-github-action@master
