@@ -16,7 +16,7 @@ class OrdersService implements IOrdersService{
             })                         
 
         } catch (error) {
-            console.log(JSON.stringify(error))
+            console.log(error)
         }
     }
     
