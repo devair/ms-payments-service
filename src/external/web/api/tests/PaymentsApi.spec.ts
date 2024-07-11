@@ -1,10 +1,13 @@
-import request from "supertest";
-import { app } from "../../../../index";
+import request from "supertest"
+import { app } from "../../../../index"
 
-import { ordersStatusMock } from "../../../../adapters/tests/OrdersServiceMock";
+import { ordersStatusMock } from "../../../../adapters/tests/OrdersServiceMock"
 import { settings } from 'pactum'
+import { OutputCreatePaymentDTO } from "../../../../core/useCases/payments/createPayment/ICreatePaymentDTO"
 
 const ORDERS_URI = process.env.ORDERS_URI
+
+let onePayment: OutputCreatePaymentDTO
 
 describe("PaymentsApi", () => {
 
@@ -29,16 +32,41 @@ describe("PaymentsApi", () => {
         paymentDate: Date.now(),
         paymentUniqueNumber: "123",
 
-      });
-    //expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty("id");
-    expect(response.body.orderId).toBe(1);
-    expect(response.body.amount).toBe(20);
-  });
+      })
+    //expect(response.status).toBe(200)
+    expect(response.body).toHaveProperty("id")
+    expect(response.body.orderId).toBe(1)
+    expect(response.body.amount).toBe(20)
+
+    onePayment = response.body
+
+  })
 
   it("should get all payments", async () => {
-    const response = await request(app).get("/api/v1/payments");
-    expect(response.status).toBe(200);
-    expect(response.body).toBeInstanceOf(Array);
-  });
-});
+    const response = await request(app).get("/api/v1/payments")
+    expect(response.status).toBe(200)
+    expect(response.body).toBeInstanceOf(Array)
+  })
+
+  it('Should be able to find a payment by id', async () => {
+
+    const response = await request(app).get(`/api/v1/payments/${onePayment.id}`)
+    expect(response.status).toBe(200)
+    expect(response.body).toHaveProperty("id")
+
+  })
+
+
+  it('Should be able to find a payment by order id', async () => {
+
+    const response = await request(app).get(`/api/v1/payments/order/${onePayment.orderId}`)
+    expect(response.status).toBe(200)
+    expect(response.body).toBeInstanceOf(Array)
+
+  })
+
+  it('Should be check helth', async () => {    
+    const response = await request(app).get(`/health`)    
+    expect(response.status).toBe(200)
+  })
+})
