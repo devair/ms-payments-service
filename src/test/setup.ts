@@ -15,9 +15,9 @@ beforeAll(async () => {
   await AppDataSource.setOptions({ url: uri }).initialize()
 
   // Order Service API
-  settings.setLogLevel('ERROR')
-  await ordersStatusMock.start(3333)  
-  process.env.ORDERS_URI = 'http://localhost:3333/api/v1'
+  //settings.setLogLevel('ERROR')
+  //await ordersStatusMock.start(3333)  
+  //process.env.ORDERS_URI = 'http://localhost:3333/api/v1'
 
 }, 60000)
 
@@ -26,6 +26,16 @@ afterAll(async () => {
   await mongoose.connection.close()
   await AppDataSource.destroy()
   await mongoServer.stop()
-  await ordersStatusMock.stop()
+  //await ordersStatusMock.stop()
+}, 30000)
 
+beforeEach(async () => {  
+  // Order Service API
+  settings.setLogLevel('ERROR')
+  await ordersStatusMock.start(3333)  
+  process.env.ORDERS_URI = 'http://localhost:3333/api/v1'
+}, 60000)
+
+afterEach(async () => {  
+  await ordersStatusMock.stop()
 }, 30000)

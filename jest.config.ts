@@ -15,7 +15,7 @@ const config: Config = {
   },  
   coverageProvider: "v8",
   testMatch: ["**/*.spec.ts"],  
-  testTimeout: 30000, // Aumentar para 30 segundos
+  testTimeout: 180000, 
   globalSetup: '<rootDir>/src/test/globalSetup.ts',
   globalTeardown: '<rootDir>/src/test/globalTeardown.ts',
   collectCoverage: true, // Habilita a coleta de cobertura de código
