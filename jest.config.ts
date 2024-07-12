@@ -19,7 +19,7 @@ const config: Config = {
   globalSetup: '<rootDir>/src/test/globalSetup.ts',
   globalTeardown: '<rootDir>/src/test/globalTeardown.ts',
   collectCoverage: true, // Habilita a coleta de cobertura de código
-  collectCoverageFrom: ['src/**/*.{ts,js}', '!src/**/I*.{ts,js}'], // Arquivos para coletar cobertura
+  collectCoverageFrom: ['src/**/*.{ts,js}', '!src/**/I*.{ts,js}', '!src/**/I*.spec.{ts,js}','!src/test/**/*.spec.{ts,js}'], // Arquivos para coletar cobertura
   coverageDirectory: 'reports/coverage', // Diretório para salvar o relatório de cobertura  
   reporters: [
     'default',

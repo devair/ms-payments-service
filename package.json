@@ -1,7 +1,7 @@
 {
   "name": "pagamentos",
   "version": "1.0.0",
-  "description": "micro servico para pagamentos - POS TECH FIAP",
+  "description": "microserviço para pagamentos - POS TECH FIAP",
   "main": "index.js",
   "author": "Devair F Tonon",
   "license": "MIT",

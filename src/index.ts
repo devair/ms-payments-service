@@ -8,6 +8,8 @@ import { AppDataSource } from './external/datasource/typeorm'
 dotenv.config()
 
 const app = express()
+app.disable("x-powered-by")
+
 const port = process.env.APP_PORT;
 
 app.use(express.json())

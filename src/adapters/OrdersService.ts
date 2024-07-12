@@ -4,10 +4,8 @@ import { IOrdersService } from "../ports/IOrdersService";
  * Implementation of Order Microsservice callout 
  */
 class OrdersService implements IOrdersService{
-    static ORDERS_URI = process.env.ORDERS_URI
+    public static readonly ORDERS_URI = process.env.ORDERS_URI
     
-    constructor(){}
-
     /**
      * Make callout to update order status     
      */
@@ -20,7 +18,11 @@ class OrdersService implements IOrdersService{
                     status: status
                 }),
                 headers: { "Content-Type": "application/json" },
-            })                         
+            })  
+            
+            if(!response.ok){
+                console.log(response.body)
+            }
 
         } catch (error) {
             console.log(error)
