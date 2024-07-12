@@ -4,7 +4,7 @@ import { IOrdersService } from "../ports/IOrdersService";
  * Implementation of Order Microsservice callout 
  */
 class OrdersService implements IOrdersService{
-    public static ORDERS_URI = process.env.ORDERS_URI
+    public static readonly ORDERS_URI = process.env.ORDERS_URI
     
     /**
      * Make callout to update order status     
