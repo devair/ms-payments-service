@@ -1,7 +1,6 @@
-import "reflect-metadata"
+import { PaymentsRepositoryMongoDb } from "../../../../../adapters/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
 import { IPaymentsGateway } from "../../../../../communication/gateways/IPaymentsGateway"
 import { Payment } from "../../../../../core/entities/Payment"
-import { PaymentsRepositoryMongoDb } from "../PaymentsRepositoryMongoDb"
 
 let paymentsRepository: IPaymentsGateway
 let payment: Payment

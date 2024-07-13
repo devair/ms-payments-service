@@ -1,4 +1,4 @@
-import { IOrdersService } from "../ports/IOrdersService";
+import { IOrdersService } from "../../ports/IOrdersService";
 
 /**
  * Implementation of Order Microsservice callout 

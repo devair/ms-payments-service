@@ -1,11 +1,12 @@
-import { Request, Response } from "express";
+import { Request, Response } from "express"
 import { CreatePaymentController } from "../../../communication/controller/payments/CreatePaymentController";
 import { FindByIdPaymentController } from "../../../communication/controller/payments/FindByIdPaymentController";
 import { FindByOrderPaymentController } from "../../../communication/controller/payments/FindByOrderPaymentController";
 import { ListPaymentsController } from "../../../communication/controller/payments/ListPaymentsController";
 import { PaymentPresenter } from "../../../communication/presenter/PaymentPresenter";
 import { PaymentsRepositoryMongoDb } from "../../datasource/typeorm/mongodb/PaymentsRepositoryMongoDb";
-import { OrdersService } from "../../OrdersService";
+import { OrdersService } from "../../services/OrdersService";
+
 class PaymentsApi {
 
     static async create(request: Request, response: Response): Promise<Response> {
