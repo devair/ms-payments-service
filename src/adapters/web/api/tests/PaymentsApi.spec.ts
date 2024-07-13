@@ -1,7 +1,7 @@
 import request from "supertest"
 import { app } from "../../../../index"
 
-import { ordersStatusMock } from "../../../../adapters/tests/OrdersServiceMock"
+import { ordersStatusMock } from "../../../tests/OrdersServiceMock"
 import { settings } from 'pactum'
 import { OutputCreatePaymentDTO } from "../../../../core/useCases/payments/createPayment/ICreatePaymentDTO"
 

@@ -1,6 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
-import { AppDataSource } from '../external/datasource/typeorm'
+import { AppDataSource } from '../adapters/datasource/typeorm'
 
 let mongoServer: MongoMemoryServer
 
