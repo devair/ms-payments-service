@@ -1,16 +1,11 @@
 name: Sonarqube
 on:  
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened]    
-    branches:
-      - main
+  workflow_call:   
+  
 jobs:
   sonarcloud:
     name: SonarCloud
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest    
     steps:
       - uses: actions/checkout@v3
         with:
@@ -18,9 +13,7 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Test and coverage
-        run: yarn jest --coverage --forceExit --detectOpenHandles
-      - name: Listar
-        run: pwd && ls reports   
+        run: yarn jest --coverage --forceExit --detectOpenHandles       
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env: 
