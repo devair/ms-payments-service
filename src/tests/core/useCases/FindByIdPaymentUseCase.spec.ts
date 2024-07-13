@@ -1,6 +1,6 @@
-import { PaymentsRepositoryMongoDb } from "../../../../../adapters/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
-import { CreatePaymentUseCase } from "../../createPayment/CreatePaymentUseCase"
-import { FindByIdPaymentUseCase } from "../FindByIdPaymentUseCase"
+import { PaymentsRepositoryMongoDb } from "../../../adapters/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
+import { CreatePaymentUseCase } from "../../../core/useCases/payments/createPayment/CreatePaymentUseCase"
+import { FindByIdPaymentUseCase } from "../../../core/useCases/payments/findByIdPayment/FindByIdPaymentUseCase"
 
 let createPaymentUseCase: CreatePaymentUseCase
 let findByIdPaymentUseCase: FindByIdPaymentUseCase
