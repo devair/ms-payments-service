@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 const isTestEnvironment = process.env.NODE_ENV === "test";
-const entities = isTestEnvironment ? process.env.TYPEORM_ENTITIES  : 'dist/external/datasource/typeorm/entities/*.js'
+const entities = isTestEnvironment ? process.env.TYPEORM_ENTITIES  : 'dist/adapters/datasource/typeorm/entities/*.js'
 
 const AppDataSource = new DataSource({
     type: "mongodb",
