@@ -1,6 +1,5 @@
-
-import { PaymentsRepositoryMongoDb } from "../../../../../adapters/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
-import { CreatePaymentUseCase } from "../CreatePaymentUseCase"
+import { PaymentsRepositoryMongoDb } from "../../../adapters/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
+import { CreatePaymentUseCase } from "../../../core/useCases/payments/createPayment/CreatePaymentUseCase"
 
 let createPaymentUseCase: CreatePaymentUseCase
 
