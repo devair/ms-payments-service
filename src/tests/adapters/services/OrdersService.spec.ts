@@ -1,5 +1,5 @@
 import { spec, settings } from 'pactum';
-import { ordersStatusMock } from "../tests/OrdersServiceMock";
+import { ordersStatusMock } from './OrdersServiceMock';
 
 const ORDERS_URI = process.env.ORDERS_URI
 

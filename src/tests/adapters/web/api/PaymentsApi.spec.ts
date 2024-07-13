@@ -1,9 +1,8 @@
 import request from "supertest"
 import { app } from "../../../../index"
-
-import { ordersStatusMock } from "../../../tests/OrdersServiceMock"
 import { settings } from 'pactum'
 import { OutputCreatePaymentDTO } from "../../../../core/useCases/payments/createPayment/ICreatePaymentDTO"
+import { ordersStatusMock } from "../../services/OrdersServiceMock"
 
 const ORDERS_URI = process.env.ORDERS_URI
 
