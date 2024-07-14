@@ -21,7 +21,11 @@ Ao ocorrer o pagamento do pedido, este micro serviço irá enviar uma alteraçao
 ![Relatório BDD](./static/cucumber-report.png)
  
 
-## 3) Rodar localmente no Docker for Windows
+## 3) Sonarqube
+
+* [Análise no Sonarqube](https://sonarcloud.io/summary/overall?id=devair_ms-payments-service)
+
+## 4) Rodar localmente no Docker for Windows
 
 Para executar a aplicação é necesssário ter o Docker instalado localmente com o Kubernetes ativado
 
@@ -52,7 +56,7 @@ curl http://localhost:3334/health
 ~~~
 
 
-## 4) Utilização da aplicação
+## 5) Utilização da aplicação
 
 Para utilizar a aplicação precisa-se seguir a sequência de chamadas de APIs abaixo.
 
