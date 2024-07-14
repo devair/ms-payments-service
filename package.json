@@ -10,7 +10,7 @@
     "build": "tsc -p .",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "test": "jest --coverage --forceExit --detectOpenHandles &&  cucumber-js --publish",
-    "test-cucumber": "cucumber-js --publish",
+    "bdd": "cucumber-js --publish",
     "sonar": "sonar-scanner"
   },
   "dependencies": {
