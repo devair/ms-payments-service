@@ -9,8 +9,16 @@ Projeto desenvolvido para gerenciar os pagamentos do sistema de pedidos de uma l
 Ao ocorrer o pagamento do pedido, este micro serviço irá enviar uma alteraçao de status do pedido no micro servico [ms-orders-service](https://github.com/devair/ms-orders-service)
 
 ## 2) Documentos
-[Relatório de testes BDD no Cucumber](./static/cucumber-report.html)
-![Relatório](./static/cucumber-report.png)
+
+
+### a) Relatório de testes unitários
+
+[Relatório de cobertura em Html](.static/coverage-report.html)
+![Relatório jest](./static/coverage-report.png)
+
+### b) Relatório de BDD
+[Relatório de testes BDD no Cucumber em Html](./static/cucumber-report.html)
+![Relatório BDD](./static/cucumber-report.png)
  
 
 ## 3) Rodar localmente no Docker for Windows
