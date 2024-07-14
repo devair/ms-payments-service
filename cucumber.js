@@ -8,7 +8,7 @@ let common = [
     'src/tests/bdd/features/**/*.feature',
     '--require-module ts-node/register', //typescript cucumber
     '--require src/tests/bdd/features/steps_definition/**/*.ts',
-    '--format progress-bar',    
+    '--format progress',    
     `--format-options '{"snippetInterface": "synchronous"}'`,
     '--require src/tests/bdd/support/**/*.ts', // Arquivos de suporte    
   ].join(' ');
