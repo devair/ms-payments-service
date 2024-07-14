@@ -23,7 +23,9 @@ Ao ocorrer o pagamento do pedido, este micro serviço irá enviar uma alteraçao
 
 ## 3) Sonarqube
 
-* [Análise no Sonarqube](https://sonarcloud.io/summary/overall?id=devair_ms-payments-service)
+[Análise no Sonarqube](https://sonarcloud.io/summary/overall?id=devair_ms-payments-service)
+![imagem sonar](./static/sonar-analise.png)
+
 
 ## 4) Rodar localmente no Docker for Windows
 
