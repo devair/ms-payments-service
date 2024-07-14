@@ -10,7 +10,7 @@ Ao ocorrer o pagamento do pedido, este micro serviço irá enviar uma alteraçao
 
 ## 2) Documentos
 [Relatório de testes BDD no Cucumber](./static/cucumber-report.html)
-<iframe src="./static/cucumber-report.html"></iframe>
+
  
 
 ## 3) Rodar localmente no Docker for Windows
