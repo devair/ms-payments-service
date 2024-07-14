@@ -9,9 +9,9 @@
     "start": "tsc && node dist/index.js",
     "build": "tsc -p .",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
-    "test": "jest --coverage --forceExit --detectOpenHandles &&  cucumber-js --publish",
-    "test-cucumber": "cucumber-js --publish",
-    "sonar": "sonar-scanner"
+    "test": "jest --forceExit --detectOpenHandles",
+    "bdd": "cucumber-js src/tests/bdd/features/ -f json:reports/cucumber/cucumber-report.json &&  node cucumber-report.js ",
+    "sonar": "sonar-scanner"    
   },
   "dependencies": {
     "dotenv": "^16.4.5",
@@ -29,6 +29,7 @@
     "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
+    "cucumber-html-reporter": "^7.1.1",
     "eslint": "^8.35.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.7.0",
