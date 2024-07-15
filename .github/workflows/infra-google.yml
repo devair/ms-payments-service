@@ -97,12 +97,12 @@ jobs:
     
     - name: Create secrets
       run: |      
-    	  kubectl delete secret payment-port --ignore-not-found
-    	  kubectl create secret generic payment-port --from-literal=port=${{ secrets.APP_PORT}}    
-    	  kubectl delete secret payment-database --ignore-not-found
-    	  kubectl create secret generic payment-database --from-literal=database=${{ secrets.DB_DATABASE}}
-    	  kubectl delete secret payment-mongo-uri  --ignore-not-found
-    	  kubectl create secret generic payment-mongo-uri --from-literal=mongo-uri${{ secrets.MONGO_URI}}
+        kubectl delete secret payment-port --ignore-not-found
+        kubectl create secret generic payment-port --from-literal=port=${{ secrets.APP_PORT}}    
+        kubectl delete secret payment-database --ignore-not-found
+        kubectl create secret generic payment-database --from-literal=database=${{ secrets.DB_DATABASE}}
+        kubectl delete secret payment-mongo-uri  --ignore-not-found
+        kubectl create secret generic payment-mongo-uri --from-literal=mongo-uri${{ secrets.MONGO_URI}}
 
 
 
