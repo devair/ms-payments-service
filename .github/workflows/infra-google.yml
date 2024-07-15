@@ -28,9 +28,9 @@ env:
   IMAGE: static-site
   PAYMENTS_URI: 0.0.0.0
 
-  permissions:
-    contents: 'read'
-    id-token: 'write' 
+permissions:
+  contents: 'read'
+  id-token: 'write' 
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
