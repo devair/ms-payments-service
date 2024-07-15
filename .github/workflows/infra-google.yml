@@ -30,7 +30,7 @@ env:
 
 permissions:
   contents: 'read'
-  id-token: 'write' # Adicionando a permiss�o correta aqui
+  id-token: 'write' 
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
