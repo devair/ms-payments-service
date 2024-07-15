@@ -10,7 +10,7 @@ dotenv.config()
 const app = express()
 app.disable("x-powered-by")
 
-const port = process.env.APP_PORT;
+const port = process.env.APP_PORT || 3334;
 
 app.use(express.json())
 
@@ -23,7 +23,7 @@ app.use('/api/v1', router)
 if (process.env.NODE_ENV !== 'test') {
     AppDataSource.initialize().then(() => {
         app.listen(port, () => {
-            console.log(`Server started in ${process.env.NODE_ENV} mode on port ${port}`);
+            console.log(`Server started on port ${port}`);
         });
     }).catch(error => console.log(error));
 }
