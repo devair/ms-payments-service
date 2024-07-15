@@ -17,8 +17,8 @@ on:
   workflow_dispatch:
 
 env:
-  ORDERS_SERVICE: ${{ vars.ORDERS_SERVICE }}
-  ORDERS_API_VERSION: ${{ vars.ORDERS_API_VERSION }}
+  PAYMENTS_SERVICE: ${{ vars.PAYMENTS_SERVICE }}
+  PAYMENTS_API_VERSION: ${{ vars.PAYMENTS_API_VERSION }}
   PROJECT_ID: ${{ vars.GKE_PROJECT }}
   GAR_LOCATION: ${{ vars.GAR_LOCATION }} # us-central1 TODO:  update region of the Artifact Registry
   GKE_CLUSTER: ${{ vars.GKE_CLUSTER }}    # cluster-1  TODO: update to cluster name 
@@ -80,14 +80,21 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GAR_LOCATION }}
 
-    - id: ORDER_URI
-      name: Get orders service location
-      run: echo "$(kubectl get service/${{env.ORDERS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"      
+    - id: PAYMENT_URI
+      name: Get payments service location
+      run: echo "$(kubectl get service/${{env.PAYMENTS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"      
+        
+    - run: kubectl delete secret payment-port --ignore-not-found
+    - run: kubectl create secret generic payment-port --from-literal=port=${{ secrets.APP_PORT}}
     
-    - name: Delete config map
-      run: kubectl delete cm ms-orders-service-config-map --ignore-not-found
+    - run: kubectl delete secret payment-database --ignore-not-found
+    - run: kubectl create secret generic payment-database --from-literal=database=${{ secrets.DB_DATABASE}}
+    
+    - run: kubectl delete secret payment-mongo-uri  --ignore-not-found
+    - run: kubectl create secret generic payment-mongo-uri --from-literal=${{ secrets.MONGO_URI}}
 
-    - name: Create config map
-      run: kubectl create cm ms-orders-service-config-map --from-literal=ORDERS_URI=${{ steps.ORDER_URI.outputs.stdout }} --from-literal=APP_PORT=3333   
+
+
+
 
 
