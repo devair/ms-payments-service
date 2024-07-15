@@ -13,7 +13,7 @@ Ao ocorrer o pagamento do pedido, este micro serviço irá enviar uma alteraçao
 
 ### a) Relatório de testes unitários
 
-[Relatório de cobertura em Html](.static/coverage-report.html)
+[Relatório de cobertura em Html](./static/coverage-report.html)
 ![Relatório jest](./static/coverage-report.png)
 
 ### b) Relatório de BDD
