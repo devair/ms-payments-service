@@ -26,7 +26,11 @@ env:
   DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
   REPOSITORY: samples # TODO: update to Artifact Registry docker repository
   IMAGE: static-site
+  PAYMENTS_URI: 0.0.0.0
 
+permissions:
+  contents: 'read'
+  id-token: 'write' 
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
@@ -80,18 +84,25 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GAR_LOCATION }}
 
-    - id: PAYMENT_URI
-      name: Get payments service location
-      run: echo "$(kubectl get service/${{env.PAYMENTS_SERVICE}} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"      
-        
-    - run: kubectl delete secret payment-port --ignore-not-found
-    - run: kubectl create secret generic payment-port --from-literal=port=${{ secrets.APP_PORT}}
+    - name: Kubernetes Deploy
+      run: | 
+        git clone https://github.com/devair/app-kubernetes.git
+        kubectl apply -f app-kubernetes/ms-payments-deployment.yaml
+
+    - name: Get payments service location      
+      run: | 
+        ORDERS_URI=$(kubectl get service/${{ env.PAYMENTS_SERVICE }}  -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+        echo "PAYMENTS_URI=$PAYMENTS_URI" >> $GITHUB_ENV
+        echo {{ env.PAYMENTS_URI }}
     
-    - run: kubectl delete secret payment-database --ignore-not-found
-    - run: kubectl create secret generic payment-database --from-literal=database=${{ secrets.DB_DATABASE}}
-    
-    - run: kubectl delete secret payment-mongo-uri  --ignore-not-found
-    - run: kubectl create secret generic payment-mongo-uri --from-literal=mongo-uri${{ secrets.MONGO_URI}}
+    - name: Create secrets
+      run: |      
+        kubectl delete secret payment-port --ignore-not-found
+        kubectl create secret generic payment-port --from-literal=port=${{ secrets.APP_PORT}}    
+        kubectl delete secret payment-database --ignore-not-found
+        kubectl create secret generic payment-database --from-literal=database=${{ secrets.DB_DATABASE}}
+        kubectl delete secret payment-mongo-uri  --ignore-not-found
+        kubectl create secret generic payment-mongo-uri --from-literal=mongo-uri${{ secrets.MONGO_URI}}
 
 
 
