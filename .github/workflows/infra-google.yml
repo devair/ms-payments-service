@@ -91,7 +91,7 @@ jobs:
     - run: kubectl create secret generic payment-database --from-literal=database=${{ secrets.DB_DATABASE}}
     
     - run: kubectl delete secret payment-mongo-uri  --ignore-not-found
-    - run: kubectl create secret generic payment-mongo-uri --from-literal=${{ secrets.MONGO_URI}}
+    - run: kubectl create secret generic payment-mongo-uri --from-literal=mongo-uri${{ secrets.MONGO_URI}}
 
 
 
