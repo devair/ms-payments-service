@@ -1,17 +1,14 @@
-import { CreatePaymentUseCase } from "../../../core/useCases/payments/createPayment/CreatePaymentUseCase";
-import { InputCreatePaymentDTO, OutputCreatePaymentDTO } from "../../../core/useCases/payments/createPayment/ICreatePaymentDTO";
-import { IPaymentsGateway } from "../../gateways/IPaymentsGateway";
+import { InputCreatePaymentDTO, OutputCreatePaymentDTO } from "../../../application/dtos/ICreatePaymentDTO"
+import { CreatePaymentUseCase } from "../../../application/useCases/payments/createPayment/CreatePaymentUseCase"
 
 class CreatePaymentController {
 
-    constructor(private paymentsRepository: IPaymentsGateway) { }
+    constructor(private paymentCreated: CreatePaymentUseCase) { }
 
-    async handler({ orderId, amount, paymentDate, paymentUniqueNumber }: InputCreatePaymentDTO): 
+    async handler({ orderId, amount }: InputCreatePaymentDTO): 
         Promise<OutputCreatePaymentDTO> 
-    {
-        const paymentCreated = new CreatePaymentUseCase(this.paymentsRepository)
-
-        return await paymentCreated.execute({ orderId, amount, paymentDate, paymentUniqueNumber });
+    {      
+        return await this.paymentCreated.execute({ orderId, amount });
 
     }
 }
