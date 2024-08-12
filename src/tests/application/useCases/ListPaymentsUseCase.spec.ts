@@ -1,5 +1,5 @@
-import { CreatePaymentUseCase } from "../../../application/useCases/payments/createPayment/CreatePaymentUseCase"
-import { ListPaymentsUseCase } from "../../../application/useCases/payments/listPayments/ListPaymentsUseCase"
+import { CreatePaymentUseCase } from "../../../application/useCases/payments/CreatePaymentUseCase"
+import { ListPaymentsUseCase } from "../../../application/useCases/payments/ListPaymentsUseCase"
 import { AppDataSource } from "../../../infra/datasource/typeorm"
 
 let createPaymentUseCase: CreatePaymentUseCase

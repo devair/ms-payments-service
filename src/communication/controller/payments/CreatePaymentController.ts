@@ -1,5 +1,5 @@
 import { InputCreatePaymentDTO, OutputCreatePaymentDTO } from "../../../application/dtos/ICreatePaymentDTO"
-import { CreatePaymentUseCase } from "../../../application/useCases/payments/createPayment/CreatePaymentUseCase"
+import { CreatePaymentUseCase } from "../../../application/useCases/payments/CreatePaymentUseCase"
 
 class CreatePaymentController {
 

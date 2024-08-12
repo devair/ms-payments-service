@@ -1,5 +1,5 @@
 import amqpCallback from "amqplib/callback_api"
-import { CreatePaymentUseCase } from "../../application/useCases/payments/createPayment/CreatePaymentUseCase"
+import { CreatePaymentUseCase } from "../../application/useCases/payments/CreatePaymentUseCase"
 import { QueueNames } from "../../core/messaging/QueueNames"
 
 export class OrderCreatedQueueAdapterIN {

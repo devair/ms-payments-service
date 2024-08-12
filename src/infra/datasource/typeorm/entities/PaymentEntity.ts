@@ -1,5 +1,6 @@
-import { BeforeInsert, Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, ObjectIdColumn } from 'typeorm';
 import { Payment } from '../../../../core/entities/Payment';
+import { ObjectId } from 'mongodb'
 
 @Entity({ name: 'payments'})
 export class PaymentEntity {

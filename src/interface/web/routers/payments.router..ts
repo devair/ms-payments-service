@@ -8,7 +8,7 @@ export const paymentsRouter = (api: PaymentsApi) => {
     router.get('/:id', (req,res) => api.findById(req,res) )
     router.get('/order/:orderId', (req,res) => api.findByOrder(req,res) )
     router.get('/', (req,res) => api.list(req,res) )
-    router.post('/', (req,res) => api.create(req,res) )
+    router.patch('/approve/:id', (req,res) => api.approve(req,res) )
 
     return router
 

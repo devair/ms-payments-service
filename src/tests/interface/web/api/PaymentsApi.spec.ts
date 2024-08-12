@@ -3,11 +3,14 @@ import { settings } from "pactum"
 import { app } from "../../../../application"
 import { OutputCreatePaymentDTO } from "../../../../application/dtos/ICreatePaymentDTO"
 import { ordersStatusMock } from "../../../adapters/services/OrdersServiceMock"
+import { CreatePaymentUseCase } from "../../../../application/useCases/payments/CreatePaymentUseCase"
+import { AppDataSource } from "../../../../infra/datasource/typeorm"
 
 
 const ORDERS_URI = process.env.ORDERS_URI
 
 let onePayment: OutputCreatePaymentDTO
+let createPaymentUseCase: CreatePaymentUseCase
 
 describe("PaymentsApi", () => {
 
@@ -16,6 +19,10 @@ describe("PaymentsApi", () => {
     settings.setLogLevel('ERROR')
     //await ordersStatusMock.start(3333)
     process.env.ORDERS_URI = 'http://localhost:3333/api/v1'
+
+
+    createPaymentUseCase = new CreatePaymentUseCase(AppDataSource)
+    
   }, 5000)
 
   afterAll(async () => {
@@ -24,21 +31,16 @@ describe("PaymentsApi", () => {
 
 
   it("should create a new payment", async () => {
-    const response = await request(await app)
-      .post("/api/v1/payments")
-      .send({
-        orderId: 1,
-        amount: 20,
-        paymentDate: Date.now(),
-        paymentUniqueNumber: "123",
+    const payment = {            
+      orderId: 1,
+      paymentUniqueNumber: 'UNQ-1',
+      paymentDate: new Date(),
+      amount: 100
+  }
 
-      })
-    //expect(response.status).toBe(200)
-    expect(response.body).toHaveProperty("id")
-    expect(response.body.orderId).toBe(1)
-    expect(response.body.amount).toBe(20)
-
-    onePayment = response.body
+  onePayment = await createPaymentUseCase.execute(payment)
+  
+  expect(onePayment).toHaveProperty('id') 
 
   })
 

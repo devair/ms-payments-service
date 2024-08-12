@@ -1,20 +1,24 @@
 import { Request, Response } from "express"
-import { CreatePaymentController } from "../../../communication/controller/payments/CreatePaymentController";
-import { FindByIdPaymentController } from "../../../communication/controller/payments/FindByIdPaymentController";
-import { FindByOrderPaymentController } from "../../../communication/controller/payments/FindByOrderPaymentController";
-import { ListPaymentsController } from "../../../communication/controller/payments/ListPaymentsController";
-import { PaymentPresenter } from "../../../communication/presenter/PaymentPresenter";
 import { DataSource } from "typeorm"
-import { CreatePaymentUseCase } from "../../../application/useCases/payments/createPayment/CreatePaymentUseCase"
 import { OrdersService } from "../../../adapters/services/OrdersService"
-import { ListPaymentsUseCase } from "../../../application/useCases/payments/listPayments/ListPaymentsUseCase"
-import { FindByIdPaymentUseCase } from "../../../application/useCases/payments/findByIdPayment/FindByIdPaymentUseCase"
-import { FindByOrderPaymentUseCase } from "../../../application/useCases/payments/findByOrderPayment/FindByOrderPaymentUseCase"
+import { CreatePaymentUseCase } from "../../../application/useCases/payments/CreatePaymentUseCase"
+import { FindByIdPaymentUseCase } from "../../../application/useCases/payments/FindByIdPaymentUseCase"
+import { FindByOrderPaymentUseCase } from "../../../application/useCases/payments/FindByOrderPaymentUseCase"
+import { ListPaymentsUseCase } from "../../../application/useCases/payments/ListPaymentsUseCase"
+import { CreatePaymentController } from "../../../communication/controller/payments/CreatePaymentController"
+import { FindByIdPaymentController } from "../../../communication/controller/payments/FindByIdPaymentController"
+import { FindByOrderPaymentController } from "../../../communication/controller/payments/FindByOrderPaymentController"
+import { ListPaymentsController } from "../../../communication/controller/payments/ListPaymentsController"
+import { PaymentPresenter } from "../../../communication/presenter/PaymentPresenter"
+import { ApprovePaymentUserCase } from "../../../application/useCases/payments/ApprovePaymentUserCase"
+import { IPaymentQueueAdapterOUT } from "../../../core/messaging/IPaymentQueueAdapterOUT"
+import { ApprovePaymentController } from "../../../communication/controller/payments/ApprovePaymentController"
 
 class PaymentsApi {
 
     constructor(
-        private readonly dataSource: DataSource
+        private readonly dataSource: DataSource,
+        private publisher: IPaymentQueueAdapterOUT
     ) { }
 
     async create(request: Request, response: Response): Promise<Response> {
@@ -84,6 +88,19 @@ class PaymentsApi {
             return response.status(400).json({ message: ex.message });
         }        
     }    
+
+    async approve(request: Request, response: Response): Promise<Response> {
+        const approvePaymentUserCase = new ApprovePaymentUserCase(this.dataSource, this.publisher)
+        const approvePaymentController = new ApprovePaymentController(approvePaymentUserCase)
+        try {
+            const { id } = request.params
+            const { paymentDate, paymentUniqueNumber } = request.body
+            const payment = await approvePaymentController.handler(id, paymentDate, paymentUniqueNumber)
+            return response.status(201).json(payment);
+        } catch (ex) {
+            return response.status(400).json({ message: ex.message });
+        }
+    }
 }
 
 export { PaymentsApi }

@@ -1,5 +1,5 @@
 import { OutputFindPaymentDTO } from "../../../application/dtos/IFindPaymentDTO"
-import { FindByIdPaymentUseCase } from "../../../application/useCases/payments/findByIdPayment/FindByIdPaymentUseCase"
+import { FindByIdPaymentUseCase } from "../../../application/useCases/payments/FindByIdPaymentUseCase"
 
 class FindByIdPaymentController {
     

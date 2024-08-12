@@ -1,9 +1,10 @@
 import { DataSource } from "typeorm"
-import { IPaymentsGateway } from "../../../../communication/gateways/IPaymentsGateway"
-import { Payment } from "../../../../core/entities/Payment"
-import { PaymentEntity } from "../../../../infra/datasource/typeorm/entities/PaymentEntity"
-import { PaymentsRepositoryMongoDb } from "../../../../infra/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
-import { InputCreatePaymentDTO, OutputCreatePaymentDTO } from "../../../dtos/ICreatePaymentDTO"
+import { IPaymentsGateway } from "../../../communication/gateways/IPaymentsGateway"
+import { Payment } from "../../../core/entities/Payment"
+import { PaymentEntity } from "../../../infra/datasource/typeorm/entities/PaymentEntity"
+import { PaymentsRepositoryMongoDb } from "../../../infra/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
+import { InputCreatePaymentDTO, OutputCreatePaymentDTO } from "../../dtos/ICreatePaymentDTO"
+
 
 class CreatePaymentUseCase {
 

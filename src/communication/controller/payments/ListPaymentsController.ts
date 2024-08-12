@@ -1,5 +1,5 @@
 import { OutputFindPaymentDTO } from "../../../application/dtos/IFindPaymentDTO"
-import { ListPaymentsUseCase } from "../../../application/useCases/payments/listPayments/ListPaymentsUseCase"
+import { ListPaymentsUseCase } from "../../../application/useCases/payments/ListPaymentsUseCase"
 
 class ListPaymentsController {
     

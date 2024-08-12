@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm"
-import { IPaymentsGateway } from "../../../../communication/gateways/IPaymentsGateway"
-import { PaymentEntity } from "../../../../infra/datasource/typeorm/entities/PaymentEntity"
-import { PaymentsRepositoryMongoDb } from "../../../../infra/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
-import { OutputFindPaymentDTO } from "../../../dtos/IFindPaymentDTO"
+import { IPaymentsGateway } from "../../../communication/gateways/IPaymentsGateway"
+import { PaymentEntity } from "../../../infra/datasource/typeorm/entities/PaymentEntity"
+import { PaymentsRepositoryMongoDb } from "../../../infra/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
+import { OutputFindPaymentDTO } from "../../dtos/IFindPaymentDTO"
 
 class FindByOrderPaymentUseCase {
 

@@ -10,7 +10,7 @@ let payment: Payment
 describe('Payments tests', () => {
     beforeEach(async ()=>{        
         paymentsRepository = new PaymentsRepositoryMongoDb(AppDataSource.getMongoRepository(PaymentEntity))
-        payment = new Payment(1, 90, new Date(), 'UNQ-1')
+        payment = new Payment(1, 90)
     })
 
     it('Should be able to create a new payment for an order', async () => {
