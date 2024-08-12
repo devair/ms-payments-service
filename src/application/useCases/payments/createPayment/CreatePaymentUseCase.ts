@@ -27,7 +27,8 @@ class CreatePaymentUseCase {
             orderId: paymentCreated.orderId,
             amount: paymentCreated.amount,
             paymentDate: paymentCreated.paymentDate,
-            paymentUniqueNumber: paymentCreated.paymentUniqueNumber
+            paymentUniqueNumber: paymentCreated.paymentUniqueNumber,
+            status: paymentCreated.status
         }
     }
 
