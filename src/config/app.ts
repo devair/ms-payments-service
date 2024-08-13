@@ -36,7 +36,7 @@ export const createApp = async () => {
             await orderCreatedConsumer.consume()
 
             const rabbitMQConnection = await amqplib.connect(rabbitMqUrl);
-            const paymentApprovedPublisher = new PaymentQueueAdapterOUT(rabbitMQConnection, QueueNames.PAYMENT_APPROVED)
+            const paymentApprovedPublisher = new PaymentQueueAdapterOUT(rabbitMQConnection, QueueNames.ORDER_PAID)
             await paymentApprovedPublisher.connect()
 
             app.use('/api/v1', router(datasource, paymentApprovedPublisher))

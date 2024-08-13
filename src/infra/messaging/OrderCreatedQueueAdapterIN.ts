@@ -1,6 +1,7 @@
 import amqpCallback from "amqplib/callback_api"
 import { CreatePaymentUseCase } from "../../application/useCases/payments/CreatePaymentUseCase"
 import { QueueNames } from "../../core/messaging/QueueNames"
+import { OutputOrderQueueDTO } from "../../application/dtos/ICreateOrderQueueDTO"
 
 export class OrderCreatedQueueAdapterIN {
     constructor(
@@ -22,11 +23,12 @@ export class OrderCreatedQueueAdapterIN {
                     if (msg !== null) {
                         try {
                             // Processa a mensagem                            
-                            const order = JSON.parse(msg.content.toString());
+                            const order: OutputOrderQueueDTO = JSON.parse(msg.content.toString());
+
                             console.log('Payment - Received:', order)
 
                             // Aqui o servico persiste e publica na mesma transacao para o proximo canal
-                            await this.createPaymentUseCase.execute({ orderId: order.id, amount: order.amount})
+                            await this.createPaymentUseCase.execute({ orderId: order.orderId, amount: order.amount})
                             channel.ack(msg);
                         } catch (error) {
                             console.error('Processing error');

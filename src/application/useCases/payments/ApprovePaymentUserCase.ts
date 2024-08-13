@@ -35,13 +35,17 @@ export class ApprovePaymentUserCase {
                     throw new Error(`Payment id ${id} already rejected`)                    
                 }
             }
-                        
+            
             paymentFound.received(paymentDate, paymentUniqueNumber)
 
             const paymentUpdated = await paymentsRepository.save(PaymentEntity.fromDomain(paymentFound))
                 
             // Publicar evento de pagamento recebido
-            await this.publisher.publish(JSON.stringify(paymentUpdated))
+            const orderMessage = {
+                id: paymentUpdated.orderId,
+                status: 'Recebido'
+            }
+            await this.publisher.publish(JSON.stringify(orderMessage))
 
             // Confirma a transação
             await queryRunner.commitTransaction()

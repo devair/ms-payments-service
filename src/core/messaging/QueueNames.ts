@@ -1,6 +1,6 @@
 export enum QueueNames {
     ORDER_CREATED = "orderCreated",
-    PAYMENT_PENDING = "paymentPending",
-    PAYMENT_APPROVED = "paymentApproved",
+    ORDER_PAID = "orderPaid", 
+    PAYMENT_PENDING = "paymentPending",    
     PAYMENT_REJECTED = "paymentReject"
 }
