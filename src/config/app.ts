@@ -4,6 +4,8 @@ import * as dotenv from 'dotenv'
 import amqplib from "amqplib"
 import { AppDataSource } from "../infra/datasource/typeorm"
 import { router } from "../interface/web/routers"
+import swaggerUi from 'swagger-ui-express'
+import * as swaggerFile from '../openapi.json'
 import { CreatePaymentUseCase } from "../application/useCases/payments/CreatePaymentUseCase"
 import { OrderCreatedQueueAdapterIN } from "../infra/messaging/OrderCreatedQueueAdapterIN"
 import { QueueNames } from "../core/messaging/QueueNames"
@@ -39,7 +41,7 @@ export const createApp = async () => {
         }
     }))
 
-    //app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
     app.get('/health', (request, response) => {
         return response.status(200).send('Ok')

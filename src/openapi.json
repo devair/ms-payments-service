@@ -1,0 +1,331 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger Lanchonete - OpenAPI 3.0",
+    "description": "Este é um exemplo de uma aplicação para gerenciamento de pedidos de uma lanchonete utilizando os conceitos de Clean Architecture.",
+    "contact": {
+      "email": "devairft@gmail.com"
+    },
+    "version": "1.0.11"
+  },
+  "tags": [
+    {
+      "name": "payments",
+      "description": "Everything about payments"
+    }
+  ],
+  "paths": {
+    "/api/v1/payments": {
+      "get": {
+        "tags": ["payments"],
+        "summary": "List payments",
+        "description": "List payments",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "1"
+                      },
+                      "orderId": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "amount": {
+                        "type": "number",
+                        "example": 200.0
+                      },
+                      "paymentDate": {
+                        "type": "date",
+                        "example": "2024-08-19T15:00:00.000Z"
+                      },
+                      "paymentUniqueNumber": {
+                        "type": "string",
+                        "example": "UNQ-111"
+                      },
+                      "createdAt": {
+                        "type": "date",
+                        "example": "2024-08-19T15:00:00.000Z"
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "Pagamento pendente"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/payments/{paymentId}": {
+      "get": {
+        "tags": ["payments"],
+        "summary": "Find category by ID",
+        "description": "Returns a single payments",
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "ID of payments to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "1"
+                    },
+                    "orderId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "amount": {
+                      "type": "number",
+                      "example": 200.0
+                    },
+                    "paymentDate": {
+                      "type": "date",
+                      "example": "2024-08-19T15:00:00.000Z"
+                    },
+                    "paymentUniqueNumber": {
+                      "type": "string",
+                      "example": "UNQ-111"
+                    },
+                    "createdAt": {
+                      "type": "date",
+                      "example": "2024-08-19T15:00:00.000Z"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Pagamento pendente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/v1/payments/order/{orderId}": {
+      "get": {
+        "tags": ["payments"],
+        "summary": "List payments",
+        "description": "Returns payments",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "ID of order to update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "1"
+                      },
+                      "orderId": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "amount": {
+                        "type": "number",
+                        "example": 200.0
+                      },
+                      "paymentDate": {
+                        "type": "date",
+                        "example": "2024-08-19T15:00:00.000Z"
+                      },
+                      "paymentUniqueNumber": {
+                        "type": "string",
+                        "example": "UNQ-111"
+                      },
+                      "createdAt": {
+                        "type": "date",
+                        "example": "2024-08-19T15:00:00.000Z"
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "Pagamento pendente"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/v1/payments/approve/{paymentId}": {
+      "patch": {
+        "tags": ["payments"],
+        "summary": "Update payments",
+        "description": "Update payments.",
+        "operationId": "updatePayment",
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "path",
+            "description": "ID of payment to update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update an existent payments",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": ["paymentDate", "paymentUniqueNumber"],
+                "type": "object",
+                "properties": {                  
+                  "paymentDate": {
+                    "type": "date",
+                    "example": "2024-08-19T15:00:00.000Z"
+                  },
+                  "paymentUniqueNumber": {
+                    "type": "string",
+                    "example": "UNQ-111"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "1"
+                    },
+                    "orderId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "amount": {
+                      "type": "number",
+                      "example": 200.0
+                    },
+                    "paymentDate": {
+                      "type": "date",
+                      "example": "2024-08-19T15:00:00.000Z"
+                    },
+                    "paymentUniqueNumber": {
+                      "type": "string",
+                      "example": "UNQ-111"
+                    },
+                    "createdAt": {
+                      "type": "date",
+                      "example": "2024-08-19T15:00:00.000Z"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "Pagamento pendente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  }
+}
