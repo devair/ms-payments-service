@@ -61,10 +61,10 @@ export const createApp = async () => {
             const rabbitMQConnection = await amqplib.connect(rabbitMqUrl)
             const queuesOut:string[] = [ QueueNames.ORDER_PAID, QueueNames.PAYMENT_REJECTED]
 
-            const paymentApprovedPublisher = new PaymentQueueAdapterOUT(rabbitMQConnection, queuesOut)
-            await paymentApprovedPublisher.connect()
+            const paymentPublisher = new PaymentQueueAdapterOUT(rabbitMQConnection, queuesOut)
+            await paymentPublisher.connect()
 
-            app.use('/api/v1', router(datasource, paymentApprovedPublisher))
+            app.use('/api/v1', router(datasource, paymentPublisher))
 
 
             app.listen(port, () => {
