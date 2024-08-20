@@ -4,6 +4,7 @@ import { Payment, PaymentStatus } from "../../../core/entities/Payment"
 import { PaymentEntity } from "../../../infra/datasource/typeorm/entities/PaymentEntity"
 import { PaymentsRepositoryMongoDb } from "../../../infra/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
 import { IPaymentQueueAdapterOUT } from "../../../core/messaging/IPaymentQueueAdapterOUT"
+import { QueueNames } from "../../../core/messaging/QueueNames"
 
 
 export class RejectPaymentUserCase {
@@ -46,7 +47,7 @@ export class RejectPaymentUserCase {
                 status: 'Rejeitado'
             }
 
-            await this.publisher.publish(JSON.stringify(orderMessage))
+            await this.publisher.publish(QueueNames.PAYMENT_REJECTED, JSON.stringify(orderMessage))
 
             // Confirma a transação
             await queryRunner.commitTransaction()

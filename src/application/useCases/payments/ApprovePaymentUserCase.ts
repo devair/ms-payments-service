@@ -4,6 +4,7 @@ import { Payment, PaymentStatus } from "../../../core/entities/Payment"
 import { PaymentEntity } from "../../../infra/datasource/typeorm/entities/PaymentEntity"
 import { PaymentsRepositoryMongoDb } from "../../../infra/datasource/typeorm/mongodb/PaymentsRepositoryMongoDb"
 import { IPaymentQueueAdapterOUT } from "../../../core/messaging/IPaymentQueueAdapterOUT"
+import { QueueNames } from "../../../core/messaging/QueueNames"
 
 
 export class ApprovePaymentUserCase {
@@ -45,7 +46,7 @@ export class ApprovePaymentUserCase {
                 id: paymentUpdated.orderId,
                 status: 'Recebido'
             }
-            await this.publisher.publish(JSON.stringify(orderMessage))
+            await this.publisher.publish(QueueNames.ORDER_PAID, JSON.stringify(orderMessage))
 
             // Confirma a transação
             await queryRunner.commitTransaction()

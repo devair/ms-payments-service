@@ -3,23 +3,35 @@ import { IPaymentQueueAdapterOUT } from "../../core/messaging/IPaymentQueueAdapt
 
 export class PaymentQueueAdapterOUT implements IPaymentQueueAdapterOUT{
    
-    private channel!: amqplib.ConfirmChannel;
+    private channels!: Map<string, amqplib.ConfirmChannel>;
 
     constructor(
         private connection: amqplib.Connection,
-        private queueName: string
-    ) { }
+        private queues: string []        
+    ) {
+        this.channels = new Map<string, amqplib.ConfirmChannel>()        
+     }
 
     async connect() {
-        this.channel = await this.connection.createConfirmChannel();
-        await this.channel.assertQueue(this.queueName, { durable: true });
+
+        this.queues.map(async ele => {
+
+            let channel = await this.connection.createConfirmChannel();
+
+            await channel.assertQueue(ele, { durable: true });
+            
+            this.channels.set(ele, channel)            
+        })
+
     }
 
-    async publish(message: string): Promise<void>{
+    async publish(queueName: string, message: string): Promise<void>{
         const messageBuffer = Buffer.from(message);
 
+        let channel = this.channels.get(queueName)
+
         return new Promise((resolve, reject) => {
-            this.channel.sendToQueue(this.queueName, messageBuffer, {}, (err, ok) => {
+            channel.sendToQueue(queueName, messageBuffer, {}, (err, ok) => {
                 if (err) {
                     reject(err);
                 } else {

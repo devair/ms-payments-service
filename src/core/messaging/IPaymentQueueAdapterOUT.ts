@@ -1,3 +1,3 @@
 export interface IPaymentQueueAdapterOUT{
-    publish(message: string): Promise<void>
+    publish(queueName: string, message: string): Promise<void>
 }
