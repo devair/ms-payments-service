@@ -6,7 +6,7 @@ import { PaymentsRepositoryMongoDb } from "../../../infra/datasource/typeorm/mon
 import { IPaymentQueueAdapterOUT } from "../../../core/messaging/IPaymentQueueAdapterOUT"
 
 
-export class ApprovePaymentUserCase {
+export class RejectPaymentUserCase {
 
     private paymentsRepository: IPaymentsGateway
 
@@ -17,7 +17,7 @@ export class ApprovePaymentUserCase {
         this.paymentsRepository = new PaymentsRepositoryMongoDb(this.dataSource.getRepository(PaymentEntity))
     } 
 
-    async execute(id: string, paymentDate: Date, paymentUniqueNumber: string): Promise<Payment> {
+    async execute(id: string, reason: string): Promise<Payment> {
         const queryRunner = this.dataSource.createQueryRunner()
 
         const paymentsRepository = queryRunner.manager.getRepository(PaymentEntity)
@@ -36,15 +36,16 @@ export class ApprovePaymentUserCase {
                 }
             }
             
-            paymentFound.receive(paymentDate, paymentUniqueNumber)
+            paymentFound.reject(reason)
 
             const paymentUpdated = await paymentsRepository.save(PaymentEntity.fromDomain(paymentFound))
                 
             // Publicar evento de pagamento recebido
             const orderMessage = {
                 id: paymentUpdated.orderId,
-                status: 'Recebido'
+                status: 'Rejeitado'
             }
+
             await this.publisher.publish(JSON.stringify(orderMessage))
 
             // Confirma a transação

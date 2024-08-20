@@ -13,6 +13,8 @@ import { PaymentPresenter } from "../../../communication/presenter/PaymentPresen
 import { ApprovePaymentUserCase } from "../../../application/useCases/payments/ApprovePaymentUserCase"
 import { IPaymentQueueAdapterOUT } from "../../../core/messaging/IPaymentQueueAdapterOUT"
 import { ApprovePaymentController } from "../../../communication/controller/payments/ApprovePaymentController"
+import { RejectPaymentUserCase } from "../../../application/useCases/payments/RejectPaymentUserCase"
+import { RejectApprovePaymentController } from "../../../communication/controller/payments/RejectApprovePaymentController"
 
 class PaymentsApi {
 
@@ -96,6 +98,19 @@ class PaymentsApi {
             const { id } = request.params
             const { paymentDate, paymentUniqueNumber } = request.body
             const payment = await approvePaymentController.handler(id, paymentDate, paymentUniqueNumber)
+            return response.status(201).json(payment);
+        } catch (ex) {
+            return response.status(400).json({ message: ex.message });
+        }
+    }
+
+    async reject(request: Request, response: Response): Promise<Response> {
+        const rejectPaymentUserCase = new RejectPaymentUserCase(this.dataSource, this.publisher)
+        const rejectApprovePaymentController = new RejectApprovePaymentController(rejectPaymentUserCase)
+        try {
+            const { id } = request.params
+            const { reason } = request.body
+            const payment = await rejectApprovePaymentController.handler(id, reason)
             return response.status(201).json(payment);
         } catch (ex) {
             return response.status(400).json({ message: ex.message });

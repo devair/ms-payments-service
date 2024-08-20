@@ -8,6 +8,7 @@ class Payment {
     paymentUniqueNumber: string
     createdAt: Date
     status: string
+    reason: string
 
     constructor(orderId: number, amount: number) {
         this.orderId = orderId
@@ -16,10 +17,15 @@ class Payment {
         this.status = PaymentStatus.PENDING
     }
 
-    received(paymentDate: Date, paymentUniqueNumber: string) {
+    receive(paymentDate: Date, paymentUniqueNumber: string) {
         this.paymentDate = paymentDate
         this.status = PaymentStatus.APPROVED
         this.paymentUniqueNumber = paymentUniqueNumber
+    }
+
+    reject(reason) {        
+        this.status = PaymentStatus.REJECTED        
+        this.reason = reason
     }
 }
 export { Payment }

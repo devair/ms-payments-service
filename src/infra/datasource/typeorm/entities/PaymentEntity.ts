@@ -25,6 +25,9 @@ export class PaymentEntity {
     @Column({ nullable: false})
     status: string
 
+    @Column({ nullable: true})
+    reason: string
+
     @BeforeInsert()
     setCreatedAt() {
         this.createdAt = new Date();
@@ -36,6 +39,7 @@ export class PaymentEntity {
         payment.paymentUniqueNumber = this.paymentUniqueNumber
         payment.id = this._id.toString()
         payment.status = this.status
+        payment.reason = this.reason
         return payment
     }
 
@@ -51,6 +55,7 @@ export class PaymentEntity {
         paymentEntity.paymentUniqueNumber = payment.paymentUniqueNumber
         paymentEntity.createdAt = payment.createdAt 
         paymentEntity.status = payment.status       
+        paymentEntity.reason = payment.reason       
         return paymentEntity;
       }
 
