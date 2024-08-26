@@ -11,6 +11,7 @@ import { OrderCreatedQueueAdapterIN } from "../infra/messaging/OrderCreatedQueue
 import { QueueNames } from "../core/messaging/QueueNames"
 import { PaymentQueueAdapterOUT } from "../infra/messaging/PaymentQueueAdapterOUT"
 import helmet from 'helmet'
+import sanitizeJsonBody from "./sanitizeJsonBody"
 
 dotenv.config()
 const rabbitMqUrl = process.env.RABBITMQ_URL ? process.env.RABBITMQ_URL : ''
@@ -21,13 +22,17 @@ export const createApp = async () => {
     app.disable("x-powered-by")
     app.use(express.json())
 
+    // Middleware XSS Clean
+    app.use(sanitizeJsonBody); // Adiciona o middleware de sanitização
+    
+
     // Define o cabeçalho X-Content-Type-Options para 'nosniff'
     app.use((req, res, next) => {
         res.setHeader('X-Content-Type-Options', 'nosniff')
         next()
     })
 
-    // Configura o Content-Security-Policy usando helmet
+    // Configura o Content-Security-Policy usando helmet    
     app.use(helmet.contentSecurityPolicy({
         directives: {
             defaultSrc: ["'self'"],

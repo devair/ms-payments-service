@@ -6,22 +6,23 @@
   "author": "Devair F Tonon",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/application/index.ts",        
+    "start": "ts-node src/application/index.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "test": "jest --forceExit --detectOpenHandles",
     "bdd": "cucumber-js src/tests/bdd/features/ -f json:reports/cucumber/cucumber-report.json &&  node cucumber-report.js ",
-    "sonar": "sonar-scanner"    
+    "sonar": "sonar-scanner"
   },
   "dependencies": {
+    "amqplib": "^0.10.4",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
     "helmet": "^7.1.0",
     "mongodb": "^5.8.0",
     "reflect-metadata": "^0.1.13",
+    "swagger-ui-express": "^5.0.1",
     "typeorm": "^0.3.20",
-    "amqplib": "^0.10.4",
-    "swagger-ui-express": "^5.0.1"
+    "xss": "^1.0.15"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^10.8.0",
