@@ -27,71 +27,73 @@ Ao ocorrer o pagamento do pedido, este micro serviço irá enviar uma alteraçao
 ![imagem sonar](./static/sonar-analise.PNG)
 
 
-## 4) Rodar localmente no Docker for Windows
+## 4) Utilização do micro serviço
 
-Para executar a aplicação é necesssário ter o Docker instalado localmente com o Kubernetes ativado
-
-### a) Clonar o projeto 
-
-~~~bash
-  git clone https://github.com/devair/ms-payments-service.git
-~~~
-
-### b) Acessar o diretório do projeto
-
-~~~bash  
-  cd ms-payments-service
-~~~
-
-### c) Rodar no Docker
-
-### 
-~~~bash  
-docker compose build && docker compose up
-~~~  
-
-### d) Verificar o estado da aplicação
-Executar o comando abaixo no prompt e obter o retorno 'Ok' indicando que a aplicação está em execução
-
-~~~bash
-curl http://localhost:3334/health
-~~~
-
-
-## 5) Utilização da aplicação
-
-Para utilizar a aplicação precisa-se seguir a sequência de chamadas de APIs abaixo.
-
-### a) Inclusão de pagamento para um pedido
+### a) Aprovação de pagamento para um pedido
 
 Utilizar a API abaixo para inclusão de pagamento para um pedido.
 
 Utilizar a data no formato: "yyyy-MM-ddThh:mm:ss"
 
 
-POST http://localhost:3334/api/v1/payments
+PATCH http://localhost:3334/api/v1/payments/approve/<PAYMENT_ID>
 
 Content-Type: application/json
 
-Body Request:
+Body Request: 
 ~~~json
 {
-    "orderId": <ORDER ID>,
     "paymentDate": "<PAYMENT DATE>",
     "paymentUniqueNumber": "<PAYMENT UNIQUE NUMBER>"
 }
 ~~~
 
-Response Status Code: 201
+Response Status Code: 200
 
 Body Response:
 ~~~json
 {
-    "id": <PAYMENT ID>,
-    "orderId": <ORDER ID>,
-    "amount": <PAID AMOUNT>,
-    "paymentDate": "<PAYMENT DATE>",
-    "paymentUniqueNumber": "<PAYMENT UNIQUE NUMBER>"
+  "orderId": <ORDER_ID>,
+  "amount": <ORDER_AMOUNT>,
+  "createdAt": <CREATED_DATE>,
+  "status": "Aprovado",
+  "paymentDate": <PAYMENT_DATE>,
+  "paymentUniqueNumber": <PAYMENT_UNIQUE_NUMBER>,
+  "id": <PAYMENT_ID>,
+  "reason": <REASON>
+}
+~~~
+
+
+### b) Rejeição de pagamento para um pedido
+
+Utilizar a API abaixo para rejeição de pagamento para um pedido.
+
+
+PATCH http://localhost:3334/api/v1/payments/reject/<PAYMENT_ID>
+
+Content-Type: application/json
+
+Body Request: 
+~~~json
+{
+   "reason": "no reason"
+}
+~~~
+
+Response Status Code: 200
+
+Body Response:
+~~~json
+{
+  "orderId": <ORDER_ID>,
+  "amount": <ORDER_AMOUNT>,
+  "createdAt": <CREATED_DATE>,
+  "status": "Rejeitado",
+  "paymentDate": <PAYMENT_DATE>,
+  "paymentUniqueNumber": <PAYMENT_UNIQUE_NUMBER>,
+  "id": <PAYMENT_ID>,
+  "reason": <REASON>
 }
 ~~~
 
