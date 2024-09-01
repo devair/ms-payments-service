@@ -1,16 +1,13 @@
-import { OutputFindPaymentDTO } from "../../../core/useCases/payments/findByIdPayment/IFindPaymentDTO";
-import { ListPaymentsUseCase } from "../../../core/useCases/payments/listPayments/ListPaymentsUseCase";
-import { IPaymentsGateway } from "../../gateways/IPaymentsGateway";
+import { OutputFindPaymentDTO } from "../../../application/dtos/IFindPaymentDTO"
+import { ListPaymentsUseCase } from "../../../application/useCases/payments/ListPaymentsUseCase"
 
 class ListPaymentsController {
     
-    constructor(private paymentsRepository: IPaymentsGateway){}
+    constructor(private listPaymentsUseCase: ListPaymentsUseCase){}
 
     async handler(): Promise<OutputFindPaymentDTO[]> {
 
-        const listPaymentsUseCase = new ListPaymentsUseCase(this.paymentsRepository)        
-
-        return await listPaymentsUseCase.execute();       
+        return await this.listPaymentsUseCase.execute();       
 
     }
 }

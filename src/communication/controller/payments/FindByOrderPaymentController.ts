@@ -1,15 +1,13 @@
-import { OutputFindPaymentDTO } from "../../../core/useCases/payments/findByIdPayment/IFindPaymentDTO"
-import { FindByOrderPaymentUseCase } from "../../../core/useCases/payments/findByOrderPayment/FindByOrderPaymentUseCase"
-import { IPaymentsGateway } from "../../gateways/IPaymentsGateway"
+import { OutputFindPaymentDTO } from "../../../application/dtos/IFindPaymentDTO"
+import { FindByOrderPaymentUseCase } from "../../../application/useCases/payments/FindByOrderPaymentUseCase"
 
 class FindByOrderPaymentController {
 
-    constructor(private paymentsRepository: IPaymentsGateway){}
+    constructor(private findByOrderPaymentUseCase: FindByOrderPaymentUseCase){}
 
     async handler(orderId: number): Promise<OutputFindPaymentDTO[]>{
 
-        const findByOrderPaymentUseCase = new FindByOrderPaymentUseCase(this.paymentsRepository)        
-        return await findByOrderPaymentUseCase.execute(orderId) 
+        return await this.findByOrderPaymentUseCase.execute(orderId) 
 
     }
 }
